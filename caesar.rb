@@ -1,19 +1,17 @@
 def caesar(str, cyph)
-    alph = ('a'..'z').to_a
-    split = str.split('')
-    nums = split.map { |el|
-        if (alph.index(el) + cyph <= 26)
-            alph.index(el) + cyph
+    str_arr = str.split('')
+    str_arr.map{|letter|
+        letter.ord
+    }.map { |ord|
+        if ord < 65 || ord > 122
+            ord.chr
         else
-            (alph.index(el) + cyph) - 26
+            ord > 65 && ord < 97 ?
+            ((ord - 65 + cyph)%26 +65).chr :
+            ((ord - 97 + cyph)%26 +97).chr
+            
         end
-    }
-
-    return nums.map { |el|
-        alph[el]
-    }.join('')
+    }.join()
 end
 
-puts caesar('hello', 1)
-
-puts caesar('ifmmp', -1)
+puts caesar('Hello! What are your name?', 30)
